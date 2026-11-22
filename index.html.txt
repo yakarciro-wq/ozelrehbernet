@@ -1,0 +1,2288 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ÖzelRehberNET</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #eef1f5;
+      color: #182230;
+      padding: 16px 10px 40px;
+      line-height: 1.5;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .app-shell {
+      max-width: 1140px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 18px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+      border: 1px solid #d5dde8;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 20px;
+      background-color: #ffffff;
+      border-bottom: 1px solid #dfe6ef;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background-color: #eef4ff;
+      color: #1e4ed8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      border: 1px solid #d4e2fc;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #162a45;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-name span {
+      color: #1e4ed8;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background-color: transparent;
+      border: none;
+      padding: 7px 11px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #5c6b7e;
+      cursor: pointer;
+    }
+
+    .nav-btn:hover {
+      background-color: #f5f8fc;
+      color: #162a45;
+    }
+
+    .nav-btn.active {
+      background-color: #eaf1ff;
+      color: #1e4ed8;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: #1e4ed8;
+      color: #ffffff;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #173fb0;
+    }
+
+    .btn-xs {
+      padding: 5px 11px;
+      font-size: 12px;
+    }
+
+    .btn-navy {
+      background-color: #162a45;
+      color: #ffffff;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-teal {
+      background-color: #20a4b8;
+      color: #ffffff;
+      border: none;
+      padding: 8px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-full-mt {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .btn-outline {
+      background-color: #ffffff;
+      color: #182230;
+      border: 1px solid #dfe6ef;
+      padding: 8px 13px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background-color: #f5f8fc;
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+    }
+
+    .user-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #f5f8fc;
+      border: 1px solid #dfe6ef;
+      padding: 5px 12px 5px 6px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #162a45;
+    }
+
+    .user-avatar {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #162a45;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #38b27b;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .hero-band {
+      background: linear-gradient(180deg, #ffffff 0%, #e7f0fb 100%);
+      padding: 34px 22px 30px;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 30px;
+      font-weight: 800;
+      color: #162a45;
+      max-width: 720px;
+      margin: 0 auto 20px;
+      line-height: 1.25;
+    }
+
+    .search-box-wrap {
+      max-width: 560px;
+      margin: 0 auto 26px;
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border: 1px solid #d5dfec;
+      border-radius: 999px;
+      padding: 5px 6px 5px 18px;
+      box-shadow: 0 8px 24px rgba(22, 42, 69, 0.08);
+    }
+
+    .search-box-wrap input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      font-size: 14.5px;
+      color: #182230;
+      background-color: transparent;
+    }
+
+    .search-circle-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background-color: #e6f4f6;
+      color: #20a4b8;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .audience-grid {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      text-align: left;
+    }
+
+    .audience-card {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 6px 20px rgba(22, 42, 69, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .audience-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .audience-desc {
+      font-size: 13.5px;
+      color: #5c6b7e;
+      line-height: 1.48;
+      margin-top: 8px;
+    }
+
+    .audience-btn {
+      width: 100%;
+      background-color: #ffffff;
+      border: 1px solid #d6dfeb;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #162a45;
+      cursor: pointer;
+    }
+
+    .audience-btn:hover {
+      background-color: #f5f8fc;
+    }
+
+    .quick-tiles-band {
+      padding: 22px 22px 28px;
+      background-color: #ffffff;
+    }
+
+    .quick-tiles-grid {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .quick-tile {
+      border: none;
+      border-radius: 10px;
+      padding: 15px 16px;
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .tile-navy { background-color: #162a45; }
+    .tile-teal { background-color: #20a4b8; }
+    .tile-green { background-color: #38b27b; }
+    .tile-orange { background-color: #f59e0b; }
+
+    .page-inner {
+      padding: 22px 22px 32px;
+    }
+
+    .page-inner-tight {
+      padding-top: 8px;
+    }
+
+    .search-page-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .search-page-top h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .search-controls {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      flex: 1;
+      max-width: 420px;
+    }
+
+    .search-inline-input {
+      margin: 0;
+      flex: 1;
+    }
+
+    .folder-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding: 10px 12px;
+      background-color: #f8fafc;
+      border: 1px solid #dfe6ef;
+      border-radius: 10px;
+    }
+
+    .folder-bar-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #162a45;
+      margin-right: 4px;
+    }
+
+    .folder-pill {
+      background-color: #ffffff;
+      border: 1px solid #d5dfec;
+      color: #182230;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .folder-pill.active {
+      background-color: #1e4ed8;
+      color: #ffffff;
+      border-color: #1e4ed8;
+    }
+
+    .search-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 270px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .result-card {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 3px 10px rgba(22, 42, 69, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .result-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(30, 78, 216, 0.12);
+      border-color: #b9d2fe;
+    }
+
+    .result-card.featured {
+      grid-column: 1 / -1;
+    }
+
+    .result-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .result-excerpt {
+      font-size: 13px;
+      color: #5c6b7e;
+    }
+
+    .result-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: #5c6b7e;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .badge-legal {
+      background-color: #e6f6ee;
+      color: #1f7a52;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 11.5px;
+    }
+
+    .badge-blue {
+      background-color: #eef4ff;
+      color: #1e4ed8;
+    }
+
+    .badge-folder {
+      background-color: #fef3c7;
+      color: #92400e;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 11px;
+      display: inline-block;
+      width: fit-content;
+    }
+
+    .read-more-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: #1e4ed8;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pagination-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .page-num {
+      min-width: 30px;
+      height: 30px;
+      padding: 0 8px;
+      border-radius: 6px;
+      border: 1px solid #dfe6ef;
+      background-color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .page-num.active {
+      background-color: #1e4ed8;
+      color: #ffffff;
+      border-color: #1e4ed8;
+    }
+
+    .filter-panel {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .filter-group {
+      border-bottom: 1px solid #dfe6ef;
+      padding: 10px 0;
+    }
+
+    .filter-group:last-child {
+      border-bottom: none;
+    }
+
+    .filter-group-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #162a45;
+      margin-bottom: 8px;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+
+    .date-input,
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 8px 11px;
+      border: 1px solid #dfe6ef;
+      border-radius: 7px;
+      font-size: 13px;
+      color: #182230;
+      background-color: #ffffff;
+      font-family: inherit;
+    }
+
+    .date-input {
+      margin-bottom: 6px;
+    }
+
+    .events-main-title {
+      font-size: 23px;
+      font-weight: 800;
+      color: #162a45;
+      margin-bottom: 16px;
+    }
+
+    .events-filter-bar {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .filter-pills-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #5c6b7e;
+      margin-bottom: 6px;
+    }
+
+    .pills-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #182230;
+      cursor: pointer;
+    }
+
+    .pill-btn.active {
+      background-color: #162a45;
+      color: #ffffff;
+      border-color: #162a45;
+    }
+
+    .calendar-events-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .calendar-card {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .cal-month-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: #162a45;
+    }
+
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #5c6b7e;
+      margin-bottom: 6px;
+    }
+
+    .cal-days {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 5px;
+    }
+
+    .cal-day {
+      min-height: 58px;
+      border: 1px solid #e7edf5;
+      border-radius: 8px;
+      padding: 4px;
+      font-size: 12px;
+      background-color: #fbfcfe;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .cal-day.muted {
+      color: #b0bac7;
+      background-color: #f8fafc;
+    }
+
+    .cal-day.selected {
+      outline: 2px solid #1e4ed8;
+    }
+
+    .ev-tag {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 4px;
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tag-blue { background-color: #dbeafe; color: #1e40af; }
+    .tag-green { background-color: #dcfce7; color: #166534; }
+    .tag-yellow { background-color: #fef9c3; color: #854d0e; }
+
+    .event-cards-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .event-card {
+      display: flex;
+      gap: 14px;
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .event-thumb {
+      width: 108px;
+      min-height: 102px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .thumb-1 { background: linear-gradient(135deg, #2b6cb0, #38b2ac); }
+    .thumb-2 { background: linear-gradient(135deg, #1e293b, #3b82f6); }
+    .thumb-3 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+
+    .event-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .event-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .event-meta {
+      font-size: 12px;
+      color: #5c6b7e;
+    }
+
+    .law-hero {
+      background: linear-gradient(180deg, #ffffff 0%, #e7f0fb 100%);
+      padding: 30px 22px 22px;
+      text-align: center;
+      border-bottom: 1px solid #e6eef8;
+    }
+
+    .law-hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #162a45;
+      margin-bottom: 8px;
+    }
+
+    .law-hero p {
+      font-size: 14px;
+      color: #5c6b7e;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .law-list {
+      max-width: 860px;
+      margin: 20px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .law-card {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .law-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .law-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      background-color: #eef4ff;
+      color: #1e4ed8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .law-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #162a45;
+      margin-bottom: 3px;
+    }
+
+    .law-desc {
+      font-size: 13px;
+      color: #5c6b7e;
+      margin-bottom: 6px;
+    }
+
+    .law-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: #5c6b7e;
+    }
+
+    .sub-hero-center {
+      text-align: center;
+      padding: 12px 10px 20px;
+    }
+
+    .sub-hero-left {
+      text-align: left;
+      padding-bottom: 10px;
+    }
+
+    .sub-hero-center h1 {
+      font-size: 25px;
+      font-weight: 800;
+      color: #162a45;
+    }
+
+    .lawyer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.85fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .lawyer-search-wrap {
+      max-width: 100%;
+      margin-bottom: 16px;
+    }
+
+    .accordion-item {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .accordion-head {
+      width: 100%;
+      background-color: #ffffff;
+      border: none;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .accordion-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .accordion-sub {
+      font-size: 12px;
+      color: #5c6b7e;
+      margin-top: 2px;
+    }
+
+    .accordion-toggle {
+      font-size: 18px;
+      font-weight: 700;
+      color: #5c6b7e;
+      flex-shrink: 0;
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 12px 16px 14px;
+      font-size: 13px;
+      color: #182230;
+      border-top: 1px solid #f0f4f9;
+    }
+
+    .accordion-item.open .accordion-body {
+      display: block;
+    }
+
+    .side-form-card {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(22, 42, 69, 0.06);
+      margin-bottom: 14px;
+    }
+
+    .side-form-header {
+      background-color: #162a45;
+      color: #ffffff;
+      padding: 12px 16px;
+      font-size: 14.5px;
+      font-weight: 700;
+    }
+
+    .side-form-body {
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .network-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+
+    .panel-box {
+      background-color: #ffffff;
+      border: 1px solid #dfe6ef;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 3px 12px rgba(22, 42, 69, 0.04);
+    }
+
+    .panel-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #162a45;
+      margin-bottom: 10px;
+    }
+
+    .expert-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .expert-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #dbeafe;
+      color: #162a45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .expert-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #162a45;
+    }
+
+    .expert-role {
+      font-size: 11.5px;
+      color: #5c6b7e;
+    }
+
+    .summary-text {
+      font-size: 12.5px;
+      color: #5c6b7e;
+    }
+
+    .stack-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .assistant-band {
+      background: linear-gradient(180deg, #ffffff 0%, #e7f0fb 100%);
+      padding: 30px 22px 34px;
+    }
+
+    .assistant-top {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 20px;
+    }
+
+    .assistant-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background-color: #dce9f9;
+      color: #162a45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 12px;
+      border: 2px solid #ffffff;
+      box-shadow: 0 6px 16px rgba(22, 42, 69, 0.08);
+    }
+
+    .assistant-top h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #162a45;
+      margin-bottom: 6px;
+    }
+
+    .assistant-top p {
+      font-size: 13.5px;
+      color: #5c6b7e;
+    }
+
+    .chat-input-bar {
+      max-width: 680px;
+      margin: 0 auto 22px;
+      background-color: #ffffff;
+      border: 1px solid #d5dfec;
+      border-radius: 14px;
+      padding: 6px 8px 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 22px rgba(22, 42, 69, 0.07);
+    }
+
+    .chat-input-bar input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: #182230;
+      background-color: transparent;
+    }
+
+    .chat-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: none;
+      background-color: #20a4b8;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .qa-sections {
+      max-width: 1020px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .qa-section-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: #162a45;
+      margin-bottom: 12px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid #dbeafe;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qa-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .qa-card-btn {
+      background-color: #ffffff;
+      border: 1px solid #dce5f0;
+      border-radius: 12px;
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(22, 42, 69, 0.04);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      transition: all 0.15s ease;
+    }
+
+    .qa-card-btn:hover {
+      border-color: #1e4ed8;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(30, 78, 216, 0.1);
+      background-color: #f8fbff;
+    }
+
+    .qa-card-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #182230;
+      line-height: 1.4;
+    }
+
+    .qa-card-footer {
+      font-size: 11.5px;
+      color: #5c6b7e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .assistant-answer-box {
+      max-width: 1020px;
+      margin: 22px auto 0;
+      background-color: #ffffff;
+      border: 1px solid #cbd9ec;
+      border-radius: 14px;
+      padding: 20px 22px;
+      display: none;
+      box-shadow: 0 10px 30px rgba(22, 42, 69, 0.08);
+    }
+
+    .assistant-answer-box.active {
+      display: block;
+    }
+
+    .answer-q-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1e4ed8;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .answer-body-text {
+      font-size: 14px;
+      color: #182230;
+      line-height: 1.7;
+    }
+
+    mark.hl {
+      background-color: #fef08a;
+      color: #162a45;
+      padding: 0 3px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #162a45;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 999;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-container {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 720px;
+      max-height: 85vh;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid #dfe6ef;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      background-color: #f8fafc;
+    }
+
+    .modal-title-box {
+      flex: 1;
+    }
+
+    .modal-badge-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #162a45;
+      line-height: 1.3;
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      font-size: 22px;
+      font-weight: 700;
+      color: #5c6b7e;
+      cursor: pointer;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .modal-body {
+      padding: 22px;
+      overflow-y: auto;
+      font-size: 14.5px;
+      color: #182230;
+      line-height: 1.7;
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      border-top: 1px solid #dfe6ef;
+      background-color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    @media (max-width: 920px) {
+      .qa-grid, .lawyer-grid, .network-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .results-grid, .audience-grid, .quick-tiles-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" id="brandHomeBtn">
+        <div class="brand-icon">⚖️</div>
+        <div class="brand-name">ÖzelRehber<span>NET</span></div>
+      </div>
+
+      <nav class="nav-links">
+        <button type="button" class="nav-btn active" data-screen="home">Ana Sayfa</button>
+        <button type="button" class="nav-btn" data-screen="search">Arama</button>
+        <button type="button" class="nav-btn" data-screen="events">Etkinlik Takvimi</button>
+        <button type="button" class="nav-btn" data-screen="laws">Yasal Haklar</button>
+        <button type="button" class="nav-btn" data-screen="lawyer">Avukat Masası</button>
+        <button type="button" class="nav-btn" data-screen="network">Uzman &amp; Öğretmen</button>
+        <button type="button" class="nav-btn" data-screen="assistant">Soru Rehberi</button>
+      </nav>
+
+      <div class="topbar-right" id="topbarRight">
+        <button type="button" class="btn-primary" id="topAuthBtn">Login / Signup</button>
+      </div>
+    </header>
+
+    <!-- ANA SAYFA -->
+    <section class="screen active" id="screen-home">
+      <div class="hero-band">
+        <h1 class="hero-title">Özel Eğitimde Güçlü Köprü: Haklarınız ve Rehberiniz Tek Yerde</h1>
+
+        <form class="search-box-wrap" id="heroSearchForm">
+          <input type="search" id="heroSearchInput" placeholder="Örn; ÇÖZGER, RAM raporu, VAKT, disleksi, BEP, yasal körlük..." />
+          <button type="submit" class="search-circle-btn" title="Ara">🔍</button>
+        </form>
+
+        <div class="audience-grid">
+          <div class="audience-card">
+            <div>
+              <div class="audience-head">👨‍👩‍👧 Aileler İçin ÇÖZGER</div>
+              <p class="audience-desc">ÇÖZGER raporu, ÖGV/BÖGV/ÖKGV hakları ve 2019 Resmî Gazete esasları.</p>
+            </div>
+            <button type="button" class="audience-btn" id="homeFamiliesBtn">Tüm ÇÖZGER Soruları</button>
+          </div>
+
+          <div class="audience-card">
+            <div>
+              <div class="audience-head">📋 Eğitsel Tanılama &amp; BEP</div>
+              <p class="audience-desc">RAM gönderme, En Az Kısıtlayıcı Eğitim Ortamı ve BEP birimi görevleri.</p>
+            </div>
+            <button type="button" class="audience-btn" id="homeIndividualsBtn">BEP Sorularını İncele</button>
+          </div>
+
+          <div class="audience-card">
+            <div>
+              <div class="audience-head">👩‍🏫 Okuma, Yazma &amp; Biliş</div>
+              <p class="audience-desc">VAKT yöntemi, sesbilgisel farkındalık, metin yapısı ve yazılı ifade adımları.</p>
+            </div>
+            <button type="button" class="audience-btn" id="homeTeachersBtn">Stratejileri Öğren</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-tiles-band">
+        <div class="quick-tiles-grid">
+          <button type="button" class="quick-tile tile-navy" data-go="laws"><span>⚖️</span> Yasal Haklar</button>
+          <button type="button" class="quick-tile tile-teal" id="tileInstitutionsBtn"><span>🎓</span> Eğitim Kurumları</button>
+          <button type="button" class="quick-tile tile-green" data-go="network"><span>🤝</span> Destekler</button>
+          <button type="button" class="quick-tile tile-orange" data-go="assistant"><span>💬</span> SSS</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARAMA EKRANI -->
+    <section class="screen" id="screen-search">
+      <div class="page-inner">
+        <div class="search-page-top">
+          <h2 id="searchResultsHeading">Arama Sonuçları</h2>
+          <div class="search-controls">
+            <input type="search" id="pageSearchInput" class="date-input search-inline-input" placeholder="Anahtar kelime ara (Örn: ÇÖZGER, 6 ay, VAKT, ÖKGV, BEP)..." />
+            <button type="button" class="btn-outline" id="clearFiltersBtn">Filtreleri Temizle</button>
+          </div>
+        </div>
+
+        <div class="folder-bar" id="folderFilterBar">
+          <span class="folder-bar-label">📁 Klasörler:</span>
+          <button type="button" class="folder-pill active" data-folder="Tümü">Tümü</button>
+          <button type="button" class="folder-pill" data-folder="ÇÖZGER & Tıbbi Değerlendirme">ÇÖZGER &amp; Tıbbi Değerlendirme</button>
+          <button type="button" class="folder-pill" data-folder="Tanılama, RAM & BEP">Tanılama, RAM &amp; BEP</button>
+          <button type="button" class="folder-pill" data-folder="Okuma, Yazma & Biliş">Okuma, Yazma &amp; Biliş</button>
+          <button type="button" class="folder-pill" data-folder="Sık Sorulan Sorular (SSS)">Sık Sorulan Sorular (SSS)</button>
+        </div>
+
+        <div class="search-layout">
+          <div>
+            <div class="results-grid" id="searchResultsGrid"></div>
+            <div class="pagination-bar" id="paginationBar"></div>
+          </div>
+
+          <aside class="filter-panel">
+            <div class="filter-group">
+              <div class="filter-group-title">Kategoriler ˄</div>
+              <label class="filter-option"><input type="checkbox" class="cat-check" value="Yasal Haklar" /> Yasal Haklar</label>
+              <label class="filter-option"><input type="checkbox" class="cat-check" value="Eğitim Kurumları" /> Eğitim Kurumları</label>
+              <label class="filter-option"><input type="checkbox" class="cat-check" value="Uzman Makaleleri" /> Uzman Makaleleri</label>
+            </div>
+
+            <div class="filter-group">
+              <div class="filter-group-title">İçerik Tipi ˄</div>
+              <label class="filter-option"><input type="checkbox" class="type-check" value="Makale" /> Makale</label>
+              <label class="filter-option"><input type="checkbox" class="type-check" value="Rehber" /> Rehber</label>
+              <label class="filter-option"><input type="checkbox" class="type-check" value="Soru-Cevap" /> Soru-Cevap</label>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ETKİNLİK TAKVİMİ -->
+    <section class="screen" id="screen-events">
+      <div class="page-inner">
+        <h1 class="events-main-title">Özel Eğitim Şenlikleri, Seminerler ve Tatil Programları</h1>
+
+        <div class="events-filter-bar">
+          <div>
+            <div class="filter-pills-label">Tüm Kategoriler</div>
+            <div class="pills-row" id="eventCategoryPills">
+              <button type="button" class="pill-btn active" data-cat="Tümü">Tümü</button>
+              <button type="button" class="pill-btn" data-cat="Seminer">Seminer</button>
+              <button type="button" class="pill-btn" data-cat="Şenlik">Şenlik</button>
+              <button type="button" class="pill-btn" data-cat="Tatil">Tatil</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="filter-pills-label">Tüm Konumlar</div>
+            <div class="pills-row" id="eventLocationPills">
+              <button type="button" class="pill-btn active" data-loc="Tümü">Tümü</button>
+              <button type="button" class="pill-btn" data-loc="İstanbul">İstanbul</button>
+              <button type="button" class="pill-btn" data-loc="Ankara">Ankara</button>
+              <button type="button" class="pill-btn" data-loc="İzmir">İzmir</button>
+              <button type="button" class="pill-btn" data-loc="Online">Online</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-events-grid">
+          <div class="calendar-card">
+            <div class="cal-header">
+              <button type="button" class="btn-outline btn-sm" id="calPrevBtn">Başlangıç</button>
+              <div class="cal-month-title">‹ Ekim 2026 ›</div>
+              <button type="button" class="btn-primary btn-xs" id="calTodayBtn">5 Ekim</button>
+            </div>
+            <div class="cal-weekdays">
+              <div>Pzt</div><div>Sal</div><div>Çar</div><div>Per</div><div>Cum</div><div>Cmt</div><div>Paz</div>
+            </div>
+            <div class="cal-days" id="calendarGrid"></div>
+          </div>
+
+          <div class="event-cards-col" id="eventCardsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YASAL HAKLAR -->
+    <section class="screen" id="screen-laws">
+      <div class="law-hero">
+        <h1>Özel Eğitimde Yasal Haklar ve Mevzuat</h1>
+        <p>Türkiye'deki özel gereksinimli bireyler ve aileleri için kapsamlı yasal haklar rehberi ve ÇÖZGER esasları.</p>
+      </div>
+
+      <div class="page-inner page-inner-tight">
+        <div class="law-list">
+          <div class="law-card">
+            <div class="law-left">
+              <div class="law-icon">⚖️</div>
+              <div>
+                <div class="law-title">Eğitimde Fırsat Eşitliği ve Haklar</div>
+                <div class="law-desc">Özel gereksinimli çocukların eğitim hakları, 20 Şubat 2019 tarihli ÇÖZGER mevzuatı ve uygulamalar.</div>
+                <div class="law-count">📄 12 makale</div>
+              </div>
+            </div>
+            <button type="button" class="btn-primary" id="lawEqualityBtn">Detaylı Oku</button>
+          </div>
+
+          <div class="law-card">
+            <div class="law-left">
+              <div class="law-icon">📋</div>
+              <div>
+                <div class="law-title">Mevzuat ve Yönetmelikler</div>
+                <div class="law-desc">MEB özel eğitim hizmetleri yönetmelikleri, RAM yönlendirme ve BEP hazırlama esasları.</div>
+                <div class="law-count">📄 8 makale</div>
+              </div>
+            </div>
+            <button type="button" class="btn-primary" id="lawRegulationsBtn">Detaylı Oku</button>
+          </div>
+
+          <div class="law-card">
+            <div class="law-left">
+              <div class="law-icon">🤝</div>
+              <div>
+                <div class="law-title">Ailenin ve Bireyin Hukuki Güvencesi</div>
+                <div class="law-desc">Ailelerin yasal süreçlerdeki rolleri, başvuru hakları, itiraz yolları ve sağlanan destekler.</div>
+                <div class="law-count">📄 15 makale</div>
+              </div>
+            </div>
+            <button type="button" class="btn-primary" data-go="lawyer">Avukat Masasına Git</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVUKAT MASASI -->
+    <section class="screen" id="screen-lawyer">
+      <div class="page-inner">
+        <div class="sub-hero-center">
+          <h1>Hukuksal Haklar ve Uzman Avukat Danışma Masası</h1>
+        </div>
+
+        <div class="lawyer-grid">
+          <div>
+            <div class="panel-title">Hukuki Kaynaklar ve Makaleler</div>
+
+            <form class="search-box-wrap lawyer-search-wrap" id="lawyerSearchForm">
+              <input type="search" id="lawyerSearchInput" placeholder="Örn; ÇÖZGER, kaynaştırma, itiraz, BEP..." />
+              <button type="submit" class="search-circle-btn">🔍</button>
+            </form>
+
+            <div class="accordion-item">
+              <button type="button" class="accordion-head">
+                <div>
+                  <div class="accordion-title">🏛️ Özel Eğitim Yasaları ve Yönetmelikleri</div>
+                  <div class="accordion-sub">Özel eğitim hizmetleri yönetmelikleri, temel mevzuat ve uygulama esasları</div>
+                </div>
+                <span class="accordion-toggle">+</span>
+              </button>
+              <div class="accordion-body">
+                Özel gereksinimli bireylerin eğitim hakları, BEP geliştirme birimi görevleri ve destek eğitim hizmetlerine ilişkin temel mevzuat özetleri bu başlık altında yer alır.
+              </div>
+            </div>
+
+            <div class="accordion-item open">
+              <button type="button" class="accordion-head">
+                <div>
+                  <div class="accordion-title">✍️ İtiraz ve Dava Yolları</div>
+                  <div class="accordion-sub">Eğitsel değerlendirme itirazları, idari başvurular ve hukuki süreçler</div>
+                </div>
+                <span class="accordion-toggle">−</span>
+              </button>
+              <div class="accordion-body">
+                RAM eğitsel değerlendirme kararına itiraz süreleri, dilekçe adımları ve idari yargı başvurularına dair rehber bilgiler sahada genişletilecek.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="side-form-card">
+              <div class="side-form-header">Avukata Soru Sor / Danışma Talep Et</div>
+              <form class="side-form-body" id="lawyerRequestForm">
+                <input type="text" class="form-input" placeholder="Ad Soyad" required />
+                <input type="email" class="form-input" placeholder="E-posta Adresi" required />
+                <input type="tel" class="form-input" placeholder="Telefon Numarası" />
+                <select class="form-select">
+                  <option value="">Konu Başlığı Seçin</option>
+                  <option>Kaynaştırma ve BEP Hakları</option>
+                  <option>RAM Kararına İtiraz</option>
+                  <option>Destek Eğitim ve Ücretler</option>
+                </select>
+                <textarea rows="3" class="form-textarea" placeholder="Mesajınız..."></textarea>
+                <button type="submit" class="btn-navy">🔒 Talebi Gönder</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UZMAN & ÖĞRETMEN -->
+    <section class="screen" id="screen-network">
+      <div class="page-inner">
+        <div class="sub-hero-center sub-hero-left">
+          <h1>Uzmanlarla ve Öğretmenlerle İletişim Ağı</h1>
+        </div>
+
+        <div class="network-grid">
+          <div class="panel-box">
+            <div class="panel-title">Kaynaştırma öğrencisi için BEP nasıl hazırlanmalı?</div>
+            <div class="expert-mini">
+              <div class="expert-circle">EY</div>
+              <div>
+                <div class="expert-name">Dr. Elif Yılmaz</div>
+                <div class="expert-role">Özel Eğitim Uzmanı</div>
+              </div>
+            </div>
+            <p class="summary-text">
+              BEP, öğrencinin mevcut performans düzeyi, RAM eğitsel değerlendirme raporu ve kısa-uzun dönemli hedefler doğrultusunda hazırlanır.
+            </p>
+          </div>
+
+          <div class="panel-box">
+            <div class="panel-title">Öğretmen-Veli İletişim Talebi Oluştur</div>
+            <form class="stack-form" id="networkRequestForm">
+              <input type="text" class="form-input" placeholder="Konu Başlığı" />
+              <textarea rows="3" class="form-textarea" placeholder="Mesajınızı yazın..."></textarea>
+              <button type="submit" class="btn-navy btn-full">Talebi Gönder</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SORU REHBERİ -->
+    <section class="screen" id="screen-assistant">
+      <div class="assistant-band">
+        <div class="assistant-top">
+          <div class="assistant-avatar">👩‍🏫</div>
+          <h1>Soru Rehberi ve Akademik Masası</h1>
+          <p>Her bir sorunun kendine ait bağımsız kartı bulunmaktadır. Tıklayarak yanıtı görüntüleyebilirsiniz.</p>
+        </div>
+
+        <form class="chat-input-bar" id="assistantForm">
+          <span>🔍</span>
+          <input type="text" id="assistantInput" placeholder="Soru başlığı veya anahtar kelime yazın... (Örn: yasal körlük, VAKT, ÖKGV)" />
+          <button type="submit" class="chat-send-btn" title="Gönder">➤</button>
+        </form>
+
+        <div class="qa-sections" id="qaSectionsContainer"></div>
+
+        <div class="assistant-answer-box" id="assistantAnswerBox">
+          <div class="answer-q-label" id="assistantQuestionLabel"></div>
+          <div class="answer-body-text" id="assistantAnswerText"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- MODAL PENCERE -->
+  <div class="modal-overlay" id="detailModalOverlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <div class="modal-title-box">
+          <div class="modal-badge-row">
+            <span class="badge-folder" id="modalFolder">Klasör</span>
+          </div>
+          <h3 class="modal-title" id="modalTitle">Konu Başlığı</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="modalCloseBtn">✕</button>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline" id="modalCloseFooterBtn">Kapat</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toastBox"></div>
+
+  <script>
+    (() => {
+      const knowledgeBase = [
+        // Akademik Makaleler (Başlarındaki sayılar kaldırıldı)
+        {
+          id: 101,
+          folder: "ÇÖZGER & Tıbbi Değerlendirme",
+          title: "ÇÖZGER Mevzuatı ve Tıbbi Değerlendirme İlkeleri",
+          excerpt: "20 Şubat 2019 tarih ve 30692 sayılı Resmî Gazete düzenlemesi, ÇÖZGER, ICF-CY, ICD, rapor süreleri ve ihmal/istismar bildirim yükümlülüğü.",
+          category: "Yasal Haklar",
+          type: "Rehber",
+          date: "2022-10-25",
+          summaryText: "20 Şubat 2019 tarih ve 30692 sayılı Resmî Gazete’de yayımlanarak yürürlüğe giren yönetmelik doğrultusunda, 18 yaşını doldurmamış bireylerin yeti yitimi ve yetersizlik durumlarının belgelenmesinde Özürlü Sağlık Kurulu Raporu yerine Çocuklar İçin Özel Gereksinim Raporu (ÇÖZGER) uygulamasına geçilmiştir. ÇÖZGER sistematiği; BM Çocuk Haklarına Dair Sözleşme, ICF-CY ve ICD kriterlerini temel alır. Rapor süreleri en az iki yıl, kalıcı durumlarda ise sürekli tanzim edilir. İhmal veya istismar bulgularında derhal yasal bildirim zorunludur."
+        },
+        {
+          id: 102,
+          folder: "ÇÖZGER & Tıbbi Değerlendirme",
+          title: "Gelişimsel ve Sistemik Hastalıkların ÇÖZGER Kapsamında Değerlendirilmesi",
+          excerpt: "Bilişsel SD parametreleri (ÖGV/ÖKGV), görme keskinliği ve yasal körlük sınırı, prematüre düzeltilmiş yaş, OSB 6 aylık izlem ve nefrotik sendrom.",
+          category: "Uzman Makaleleri",
+          type: "Makale",
+          date: "2022-10-25",
+          summaryText: "Bilişsel gelişimde -1.5 SD ile -2 SD arası ÖGV, -3 SD ve altı ÖKGV kararı verilir. En iyi görme keskinliğinin 0.1 ve altında olması veya görme alanının 20 derecenin altına inmesi yasal körlüktür. Prematüre çocuklarda 2 yaşına kadar düzeltilmiş yaş kullanılır. Otizm Spektrum Bozukluğu (OSB) tanısına doğrudan ÖKGV verilir. Nefrotik sendromda 6 aylık izlem neticesinde BÖGV verilir."
+        },
+        {
+          id: 103,
+          folder: "Tanılama, RAM & BEP",
+          title: "Özel Eğitimde Tanılama, Gönderme ve BEP İnşası",
+          excerpt: "Gönderme öncesi müdahale, RAM multidisipliner değerlendirmesi, En Az Kısıtlayıcı Eğitim Ortamı ve BEP Geliştirme Birimi.",
+          category: "Eğitim Kurumları",
+          type: "Rehber",
+          date: "2020-08-14",
+          summaryText: "Sınıf içi uyarlamalardan sonra RAM'a yönlendirilen öğrenci, Özel Eğitim Değerlendirme Kurulu tarafından değerlendirilir. En Az Kısıtlayıcı Eğitim Ortamı esas alınarak yerleştirilir. Okulda kurulan BEP Geliştirme Birimi tarafından öğrenciye özel BEP hazırlanır."
+        },
+        {
+          id: 104,
+          folder: "Okuma, Yazma & Biliş",
+          title: "Erken Okuryazarlık, Sesbilgisel Farkındalık ve Okuma Müdahaleleri",
+          excerpt: "Sözcük, hece, uyak ve sesbirim farkındalığı, harf bilgisi ile eşzamanlı öğretim, VAKT çoklu duyusal yöntem ve metin yapısı.",
+          category: "Uzman Makaleleri",
+          type: "Rehber",
+          date: "2021-05-10",
+          summaryText: "Sesbilgisel farkındalık harf bilgisi ile eşzamanlı öğretildiğinde okuma kazanımı ivme kazanır. İleri düzey okuma güçlüklerinde Görsel, İşitsel, Kinestetik ve Dokunsal duyuları aktif eden Çoklu Duyusal Yöntem (VAKT) kullanılır."
+        },
+        {
+          id: 105,
+          folder: "Okuma, Yazma & Biliş",
+          title: "Yazılı İfade Stratejileri, Nörobilişsel İşlevler ve Araştırma Metodolojisi",
+          excerpt: "Planlama, taslak, düzeltme, kontrol ve paylaşma aşamaları; sol ve sağ beyin yarımkürelerinin işlevsel rolleri.",
+          category: "Uzman Makaleleri",
+          type: "Makale",
+          date: "2021-11-18",
+          summaryText: "Yazılı anlatım öğretimi Strateji Temelli Yazım Öğretimi modeliyle gerçekleştirilir. Sol hemisfer dilsel ve ardışık analizde; sağ hemisfer görsel-uzamsal algıda aktiftir. Okuma-yazma iki hemisferin iletişimini gerektirir."
+        },
+
+        // Sorular ve Yanıtları (Başlarındaki "Soru X:" ifadeleri kaldırıldı)
+        {
+          id: 1,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "ÇÖZGER nedir ve eski engelli sağlık kurulu raporlarından temel farkı nedir?",
+          excerpt: "18 yaş altı bireyler için 20 Şubat 2019 Resmî Gazete yönetmeliği, ICF-CY ve çocuk merkezli değerlendirme ilkeleri.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "ÇÖZGER (Çocuklar İçin Özel Gereksinim Raporu), 18 yaşını doldurmamış bireylerin yeti yitimi ve yetersizlik durumlarının belgelenmesinde 20 Şubat 2019 tarih ve 30692 sayılı Resmî Gazete yönetmeliği ile yürürlüğe girmiştir. Eski raporlar yetişkin odaklıyken, ÇÖZGER çocukluk döneminin gelişimsel süreçlerini, ICF-CY ve ICD ölçütlerini esas alarak çocuk merkezli bir değerlendirme sunar."
+        },
+        {
+          id: 2,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "ÇÖZGER raporundaki gereksinim kategorileri nelerdir?",
+          excerpt: "Özel Gereksinimi Vardır (ÖGV), Belirgin Özel Gereksinimi Vardır (BÖGV) ve Özel Koşul Gereksinimi Vardır (ÖKGV).",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "ÇÖZGER raporunda engel oranı yüzdesi yerine işlevsel gereksinim ifadeleri yer alır: Özel Gereksinimi Vardır (ÖGV), Belirgin Özel Gereksinimi Vardır (BÖGV) ve Özel Koşul Gereksinimi Vardır (ÖKGV)."
+        },
+        {
+          id: 3,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "ÇÖZGER raporunun geçerlilik süresi neye göre belirlenmektedir?",
+          excerpt: "En az 2 yıllık veya sürekli rapor tanzim kriterleri.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Çocuğun gelişimsel değişim hızı, tedaviye yanıtı ve kurumların izlem ihtiyacı dikkate alınarak raporlar genellikle en az 2 yıl süreli verilir. İlerlemeyen veya kalıcı durumu olan çocuklarda ise rapor sürekli olarak tanzim edilebilir."
+        },
+        {
+          id: 4,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Bilişsel gelişim alanında ÖKGV kararı hangi kriterle verilir?",
+          excerpt: "Dil-bilişsel gelişimde -3 SD ve altı standart sapma kriteri.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "İşlevsel değerlendirmeler sonucunda bilişsel/dil-bilişsel gelişimi standart sapma (SD) olarak -3 SD ve altında saptanan çocuklara Özel Koşul Gereksinimi Vardır (ÖKGV) kararı verilir."
+        },
+        {
+          id: 5,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Görme işlevi değerlendirmesinde yasal körlük sınırı nedir?",
+          excerpt: "0.1 (20/200) keskinlik ve 20 derece altı görme alanı sınırı.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Optik düzeltmeyle (gözlük/lens) sağlanan en iyi görme keskinliğinin 0.1 (20/200) ve altında olması veya görme alanının 20 derecenin altına inmesi durumu yasal körlük olarak tanımlanır."
+        },
+        {
+          id: 6,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Prematüre bebeklerde motor gelişim değerlendirmesi nasıl yapılır?",
+          excerpt: "37 hafta altı doğumlarda 2 yaşına kadar düzeltilmiş yaş hesabı.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Doğumu 37 haftanın altında gerçekleşen bebeklerde, 2 yaşına kadar olan motor gelişim değerlendirmelerinde takvim yaşı yerine düzeltilmiş yaş kullanılır."
+        },
+        {
+          id: 7,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Otizm Spektrum Bozukluğu tanısı alan bir çocuğun ÇÖZGER derecesi ne olur?",
+          excerpt: "DSM-5 veya ICD-10 tanısında doğrudan ÖKGV kararı.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "DSM-5 veya ICD-10 tanı kriterlerine göre Otizm Spektrum Bozukluğu (OSB) veya Yaygın Gelişimsel Bozukluk tanısı alan çocuklara doğrudan Özel Koşul Gereksinimi Vardır (ÖKGV) kararı verilir."
+        },
+        {
+          id: 8,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Çocuk psikiyatri hastalıklarında medikal tedavi sonrası değerlendirme süresi nedir?",
+          excerpt: "6 aylık medikal takip ve izlem süresi.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Şizofreni, duygudurum bozuklukları ve organik beyin hasarına bağlı durumlarda tanı koyulduktan ve uygun medikal tedavi uygulandıktan 6 ay sonra işlevsellik tekrar değerlendirilerek rapor kesinleştirilir."
+        },
+        {
+          id: 9,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "ÇÖZGER muayenesinde çocukta ihmal veya istismar bulgusu saptanırsa ne yapılır?",
+          excerpt: "Hekim ve sağlık kurulunun derhal adli ve hukuki bildirim zorunluluğu.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Gelişimsel değerlendirme veya fiziksel muayene esnasında ihmal/istismar şüphesi saptanırsa, hekim ve sağlık kurulu derhal adli, hukuki ve sosyal hizmet mercilerine bildirimde bulunarak koruyucu tedbirleri başlatır."
+        },
+        {
+          id: 10,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Nefroloji hastalıklarda nefrotik sendrom için ÇÖZGER kriterleri nelerdir?",
+          excerpt: "Anazarka ödem, albümin ve proteinüri ile 6 aylık izlemde BÖGV.",
+          category: "Yasal Haklar",
+          type: "Soru-Cevap",
+          date: "2022-10-25",
+          summaryText: "Anazarka tarzı ödem, serum albümininin düşüklüğü ve proteinüri saptanması ve bu durumun uygun tedaviye rağmen 6 ay devam etmesi halinde BÖGV kararı verilir."
+        },
+        {
+          id: 11,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Gönderme öncesi süreç ne anlama gelir?",
+          excerpt: "Sınıf öğretmeninin genel eğitim sınıfında uyguladığı eğitsel uyarlamalar.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Sınıf öğretmeninin yetersizlik riski taşıyan öğrenci için genel eğitim sınıfı içerisinde uyguladığı eğitsel uyarlamalar, farklılaştırılmış öğretim yöntemleri ve destekleyici müdahaleler sürecidir."
+        },
+        {
+          id: 12,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Gönderme süreci nasıl başlatılır?",
+          excerpt: "Okul rehberlik servisi raporu ve veli onayı ile RAM sevk adımları.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Gönderme öncesi müdahalelere rağmen akademik ve sosyal ilerleme sağlayamayan öğrenciler için okul rehberlik servisi tarafından gönderme raporu hazırlanır ve veli onayı alınarak öğrenci RAM'a sevk edilir."
+        },
+        {
+          id: 13,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "RAM'da eğitsel değerlendirme kimler tarafından ve nasıl yapılır?",
+          excerpt: "RAM Özel Eğitim Değerlendirme Kurulu ve formal/informal testler.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "RAM'daki Özel Eğitim Değerlendirme Kurulu tarafından yürütülür. Değerlendirmede tıbbi veriler, formal zekâ/başarı testleri, informal gözlem ölçekleri ve öğretmen raporları bütüncül olarak incelenir."
+        },
+        {
+          id: 14,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "En Az Kısıtlayıcı Eğitim Ortamı ne demektir?",
+          excerpt: "Akranlarla azami düzeyde bir arada bulunmayı sağlayan eğitim ortamı.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Özel gereksinimli öğrencinin yetersizliği olmayan akranlarıyla azami düzeyde bir arada bulunmasını sağlayan, aynı zamanda eğitsel ihtiyaçlarının en üst düzeyde karşılandığı eğitim ortamıdır (Örn: Tam zamanlı kaynaştırma)."
+        },
+        {
+          id: 15,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Bireyselleştirilmiş Eğitim Programı (BEP) nedir ve kim tarafından hazırlanır?",
+          excerpt: "BEP Geliştirme Birimi üyeleri ve özel öğretim planının inşası.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "BEP, özel eğitime uygunluğu kararlaştırılmış birey için hazırlanan özel öğretim planıdır. Okul müdürü, rehber öğretmen, sınıf/branş öğretmenleri, özel eğitim öğretmeni ve veliden oluşan BEP Geliştirme Birimi tarafından hazırlanır."
+        },
+        {
+          id: 16,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "BEP hangi temel bileşenlerden oluşur?",
+          excerpt: "Performans, kısa/uzun dönemli amaçlar, materyal ve destek eğitim saatleri.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Eğitsel performans düzeyi, uzun ve kısa dönemli amaçlar, öğretim yöntem, araç ve materyalleri, sunulacak destek eğitim hizmetlerinin yeri, süresi ve sorumluları ile değerlendirme ve izleme planından oluşur."
+        },
+        {
+          id: 17,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "BEP'te yer alan kısa ve uzun dönemli amaçlar nasıl ifade edilmelidir?",
+          excerpt: "Gözlenebilir, ölçülebilir ve somut amaç yazım ilkesi.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Amaçlar gözlenebilir, ölçülebilir, bireyin mevcut performansına uygun ve bir akademik yıl içerisinde ulaşılabilecek nitelikte somut olarak yazılmalıdır."
+        },
+        {
+          id: 18,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Özel eğitim hizmetleri ne zaman sonlandırılır?",
+          excerpt: "Akran düzeyine ulaşılması durumunda destek hizmet sonlandırması.",
+          category: "Eğitim Kurumları",
+          type: "Soru-Cevap",
+          date: "2020-08-14",
+          summaryText: "Düzenli izleme ve değerlendirmeler sonucunda bireyin eğitsel performansının akran düzeyine ulaştığı ve özel eğitim/destek hizmet ihtiyacının ortadan kalktığı saptandığında hizmetler sonlandırılır."
+        },
+        {
+          id: 19,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Sesbilgisel farkındalık nedir ve alt becerileri neleri kapsar?",
+          excerpt: "Sözcük, hece, uyak ve sesbirim (fonem) farkındalığı alt boyutları.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-05-10",
+          summaryText: "Dildeki ses yapısını fark etme, manipüle etme ve işlemleme becerisidir. Sözcük, hece, uyak ve sesbirim (fonem) farkındalığı alt boyutlarından oluşur."
+        },
+        {
+          id: 20,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Erken okuryazarlıkta harf bilgisi ile sesbilgisel farkındalık birlikte mi öğretilmelidir?",
+          excerpt: "Grafem ve sesbilgisel farkındalığın eşzamanlı sunum avantajı.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-05-10",
+          summaryText: "Evet. Araştırmalar sesbilgisel farkındalık etkinliklerinin harf (grafem) bilgisi ile eşzamanlı sunulmasının okumaya geçiş hızını ve başarısını anlamlı düzeyde artırdığını göstermektedir."
+        },
+        {
+          id: 21,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Çoklu Duyusal Yöntem (VAKT) disleksi eğitiminde nasıl uygulanır?",
+          excerpt: "Visual, Auditory, Kinaesthetic, Tactile duyularının eşzamanlı aktif edilmesi.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-05-10",
+          summaryText: "Öğrencinin Görsel, İşitsel, Kinestetik ve Dokunsal duyuları aynı anda aktif edilir. Öğrenci harfi görür (görsel), sesini duyar (işitsel), dokunsal materyal üzerinde parmağıyla çizer (dokunsal/kinestetik) ve sesi kendi söyler."
+        },
+        {
+          id: 22,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Okuduğunu anlama öğretiminde kullanılan Metin Yapısı Farkındalığı nedir?",
+          excerpt: "Öykü haritası ve bilgilendirici şemalarda fikir çözümlemesi.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-05-10",
+          summaryText: "Metnin türüne göre bilginin nasıl organize edildiğini kavramadır. Öykü haritası veya kavram şemaları kullanılarak metnin ana ve yardımcı fikirlerinin çözümlenmesini sağlar."
+        },
+        {
+          id: 23,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Okuma sırası anlama stratejileri nelerdir?",
+          excerpt: "Altını çizme, tahminde bulunma ve anlamayı izleme teknikleri.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-05-10",
+          summaryText: "Okuma esnasında önemli bilgilerin altını çizme, paragraf sonlarında tahminde bulunma, anlamayı izleme ve anlaşılamayan kısımlarda okuma hızını yavaşlatarak yeniden okuma stratejileridir."
+        },
+        {
+          id: 24,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Strateji temelli yazılı ifade öğretiminin aşamaları nelerdir?",
+          excerpt: "Planlama, taslak, düzeltme, mekanik kontrol ve paylaşma.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-11-18",
+          summaryText: "Planlama, taslak oluşturma, içeriği düzeltme/gözden geçirme, mekanik kontrol (yazım-noktalama) ve paylaşma aşamalarından oluşur."
+        },
+        {
+          id: 25,
+          folder: "Sık Sorulan Sorular (SSS)",
+          title: "Beyin yarımkürelerinin okuma ve yazma süreçlerindeki işlevsel rolleri nelerdir?",
+          excerpt: "Sol hemisfer dilsel/ardışık analiz, sağ hemisfer görsel-uzamsal algı rolü.",
+          category: "Uzman Makaleleri",
+          type: "Soru-Cevap",
+          date: "2021-11-18",
+          summaryText: "Sol beyin yarımküresi dilsel kodlama, gramer, ardışık analiz ve dizisel işlemlerde uzmandır; sağ beyin yarımküresi ise görsel-uzamsal algı, örüntü kavrama ve bütünü görme süreçlerinde aktiftir."
+        }
+      ];
+
+      const eventsData = [
+        { id: 1, title: "Down Sendromlu Çocuklar İçin Sonbahar Şenliği", dateText: "5 Ekim 2026", location: "İstanbul", city: "İstanbul", category: "Şenlik", tag: "Açık Hava", thumbClass: "thumb-1", thumbText: "Açık Hava Şenliği" },
+        { id: 2, title: "Otizm Spektrum Bozukluğunda Yeni Yaklaşımlar Semineri", dateText: "12 Ekim 2026", location: "Online", city: "Online", category: "Seminer", tag: "Online", thumbClass: "thumb-2", thumbText: "Seminer Oturumu" },
+        { id: 3, title: "Engelsiz Tatil Programı: Antalya Deneyim Kampı", dateText: "20-24 Ekim 2026", location: "Antalya", city: "İzmir", category: "Tatil", tag: "Kamp", thumbClass: "thumb-3", thumbText: "Tatil Kampı" }
+      ];
+
+      const PAGE_SIZE = 6;
+      let currentPage = 1;
+      let activeFolder = "Tümü";
+      let selectedDay = 5;
+
+      function escapeRegExp(str) {
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      }
+
+      function highlightText(text, query) {
+        if (!query) return text;
+        const terms = query.trim().split(/\s+/).filter(t => t.length >= 2);
+        if (terms.length === 0) return text;
+        const pattern = new RegExp(`(${terms.map(escapeRegExp).join("|")})`, "gi");
+        return text.replace(pattern, `<mark class="hl">$1</mark>`);
+      }
+
+      function goScreen(screenId) {
+        document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
+        const target = document.getElementById("screen-" + screenId);
+        if (target) target.classList.add("active");
+
+        document.querySelectorAll(".nav-btn").forEach(btn => {
+          btn.classList.toggle("active", btn.dataset.screen === screenId);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function openDetailModal(item, query = "") {
+        const modal = document.getElementById("detailModalOverlay");
+        const titleEl = document.getElementById("modalTitle");
+        const folderEl = document.getElementById("modalFolder");
+        const bodyEl = document.getElementById("modalBody");
+
+        if (!modal || !titleEl || !bodyEl) return;
+
+        titleEl.innerHTML = highlightText(item.title, query);
+        if (folderEl) folderEl.textContent = `📁 ${item.folder}`;
+
+        bodyEl.innerHTML = `<p class="modal-paragraph">${highlightText(item.summaryText || item.excerpt, query)}</p>`;
+        modal.classList.add("active");
+      }
+
+      function getFilteredSearchItems() {
+        const pageInput = document.getElementById("pageSearchInput");
+        const q = pageInput ? pageInput.value.trim().toLowerCase() : "";
+        const cats = Array.from(document.querySelectorAll(".cat-check:checked")).map(c => c.value);
+        const types = Array.from(document.querySelectorAll(".type-check:checked")).map(t => t.value);
+
+        return knowledgeBase.filter(item => {
+          const matchFolder = activeFolder === "Tümü" || item.folder === activeFolder;
+          const matchQ = !q || item.title.toLowerCase().includes(q) || item.excerpt.toLowerCase().includes(q) || item.summaryText.toLowerCase().includes(q);
+          const matchCat = cats.length === 0 || cats.includes(item.category);
+          const matchType = types.length === 0 || types.includes(item.type);
+          return matchFolder && matchQ && matchCat && matchType;
+        });
+      }
+
+      function renderPagination(totalItems) {
+        const bar = document.getElementById("paginationBar");
+        if (!bar) return;
+        const totalPages = Math.max(1, Math.ceil(totalItems / PAGE_SIZE));
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        let html = "";
+        for (let p = 1; p <= totalPages; p++) {
+          html += `<button type="button" class="page-num ${p === currentPage ? "active" : ""}" data-page="${p}">${p}</button>`;
+        }
+        bar.innerHTML = html;
+
+        bar.querySelectorAll(".page-num[data-page]").forEach(btn => {
+          btn.addEventListener("click", () => {
+            currentPage = Number(btn.dataset.page);
+            renderSearchResults();
+          });
+        });
+      }
+
+      function renderSearchResults() {
+        const pageInput = document.getElementById("pageSearchInput");
+        const heading = document.getElementById("searchResultsHeading");
+        const grid = document.getElementById("searchResultsGrid");
+
+        if (!heading || !grid) return;
+
+        const q = pageInput ? pageInput.value.trim() : "";
+        const filtered = getFilteredSearchItems();
+        heading.textContent = `Arama Sonuçları: ${filtered.length} kayıt bulundu`;
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="result-card featured"><div class="result-title">Eşleşen kayıt bulunamadı</div><div class="result-excerpt">Filtreleri veya arama kelimesini değiştirerek arama yapabilirsiniz.</div></div>`;
+          renderPagination(0);
+          return;
+        }
+
+        const startIdx = (currentPage - 1) * PAGE_SIZE;
+        const pageItems = filtered.slice(startIdx, startIdx + PAGE_SIZE);
+
+        grid.innerHTML = pageItems.map(item => `
+          <article class="result-card" data-id="${item.id}">
+            <span class="badge-folder">📁 ${highlightText(item.folder, q)}</span>
+            <div class="result-title">${highlightText(item.title, q)}</div>
+            <p class="result-excerpt">${highlightText(item.excerpt, q)}</p>
+            <div class="result-meta">
+              <span>ÖzelRehberNET › ${item.category}</span>
+              <span class="read-more-link">Detaylı Okuyun &rarr;</span>
+            </div>
+          </article>
+        `).join("");
+
+        renderPagination(filtered.length);
+
+        grid.querySelectorAll(".result-card[data-id]").forEach(card => {
+          card.addEventListener("click", () => {
+            const id = Number(card.dataset.id);
+            const item = knowledgeBase.find(i => i.id === id);
+            if (item) openDetailModal(item, q);
+          });
+        });
+      }
+
+      function renderAllQA(filterTerm = "") {
+        const container = document.getElementById("qaSectionsContainer");
+        if (!container) return;
+
+        const qLower = filterTerm.toLowerCase().trim();
+        const sssQuestions = knowledgeBase.filter(i => i.folder === "Sık Sorulan Sorular (SSS)");
+
+        const filtered = sssQuestions.filter(item => {
+          return !qLower || item.title.toLowerCase().includes(qLower) || item.summaryText.toLowerCase().includes(qLower);
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `<div style="text-align:center; padding:20px;">Aranan kelimede soru bulunamadı.</div>`;
+          return;
+        }
+
+        container.innerHTML = `
+          <div>
+            <div class="qa-section-title">📂 Soru Kartları (${filtered.length} Soru)</div>
+            <div class="qa-grid">
+              ${filtered.map(item => `
+                <div class="qa-card-btn" data-qid="${item.id}">
+                  <div>
+                    <div class="qa-card-text">${highlightText(item.title, filterTerm)}</div>
+                  </div>
+                  <div class="qa-card-footer">
+                    <span>📁 SSS</span>
+                    <span style="color:#1e4ed8; font-weight:700;">Yanıtı Aç &rarr;</span>
+                  </div>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        `;
+
+        container.querySelectorAll(".qa-card-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const qid = Number(btn.dataset.qid);
+            const found = knowledgeBase.find(x => x.id === qid);
+            if (found) {
+              const box = document.getElementById("assistantAnswerBox");
+              const qLabel = document.getElementById("assistantQuestionLabel");
+              const aText = document.getElementById("assistantAnswerText");
+              qLabel.innerHTML = `📌 ${found.title}`;
+              aText.innerHTML = `<p>${highlightText(found.summaryText, filterTerm)}</p>`;
+              box.classList.add("active");
+              box.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            }
+          });
+        });
+      }
+
+      function renderCalendar() {
+        const grid = document.getElementById("calendarGrid");
+        if (!grid) return;
+        let html = `<div class="cal-day muted">28</div><div class="cal-day muted">29</div><div class="cal-day muted">30</div>`;
+        for (let d = 1; d <= 31; d++) {
+          const isSel = d === selectedDay ? "selected" : "";
+          html += `<div class="cal-day ${isSel}"><span>${d}</span></div>`;
+        }
+        grid.innerHTML = html;
+      }
+
+      function renderEvents() {
+        const list = document.getElementById("eventCardsList");
+        if (!list) return;
+        list.innerHTML = eventsData.map(ev => `
+          <div class="event-card">
+            <div class="event-thumb ${ev.thumbClass}">${ev.thumbText}</div>
+            <div class="event-body">
+              <div class="event-title">${ev.title}</div>
+              <div class="event-meta">📍 ${ev.location} | 📅 ${ev.dateText}</div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      function initApp() {
+        document.querySelectorAll(".nav-btn").forEach(btn => {
+          btn.addEventListener("click", () => goScreen(btn.dataset.screen));
+        });
+
+        document.querySelectorAll("[data-go]").forEach(btn => {
+          btn.addEventListener("click", () => goScreen(btn.dataset.go));
+        });
+
+        const brandBtn = document.getElementById("brandHomeBtn");
+        if (brandBtn) brandBtn.addEventListener("click", () => goScreen("home"));
+
+        const heroForm = document.getElementById("heroSearchForm");
+        if (heroForm) {
+          heroForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const heroInput = document.getElementById("heroSearchInput");
+            const pageInput = document.getElementById("pageSearchInput");
+            if (heroInput && pageInput) pageInput.value = heroInput.value.trim();
+            currentPage = 1;
+            goScreen("search");
+            renderSearchResults();
+          });
+        }
+
+        const homeFamiliesBtn = document.getElementById("homeFamiliesBtn");
+        if (homeFamiliesBtn) homeFamiliesBtn.addEventListener("click", () => { goScreen("assistant"); renderAllQA("ÇÖZGER"); });
+
+        const homeIndividualsBtn = document.getElementById("homeIndividualsBtn");
+        if (homeIndividualsBtn) homeIndividualsBtn.addEventListener("click", () => { goScreen("assistant"); renderAllQA("BEP"); });
+
+        const homeTeachersBtn = document.getElementById("homeTeachersBtn");
+        if (homeTeachersBtn) homeTeachersBtn.addEventListener("click", () => { goScreen("assistant"); renderAllQA("VAKT"); });
+
+        const pageSearchInput = document.getElementById("pageSearchInput");
+        if (pageSearchInput) {
+          pageSearchInput.addEventListener("input", () => {
+            currentPage = 1;
+            renderSearchResults();
+          });
+        }
+
+        document.querySelectorAll(".folder-pill").forEach(pill => {
+          pill.addEventListener("click", () => {
+            activeFolder = pill.dataset.folder;
+            currentPage = 1;
+            document.querySelectorAll(".folder-pill").forEach(p => p.classList.remove("active"));
+            pill.classList.add("active");
+            renderSearchResults();
+          });
+        });
+
+        const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+        if (clearFiltersBtn) {
+          clearFiltersBtn.addEventListener("click", () => {
+            if (pageSearchInput) pageSearchInput.value = "";
+            activeFolder = "Tümü";
+            currentPage = 1;
+            document.querySelectorAll(".folder-pill").forEach(p => p.classList.toggle("active", p.dataset.folder === "Tümü"));
+            document.querySelectorAll(".cat-check, .type-check").forEach(c => c.checked = false);
+            renderSearchResults();
+          });
+        }
+
+        document.querySelectorAll(".cat-check, .type-check").forEach(el => {
+          el.addEventListener("change", () => {
+            currentPage = 1;
+            renderSearchResults();
+          });
+        });
+
+        const assistantInput = document.getElementById("assistantInput");
+        if (assistantInput) {
+          assistantInput.addEventListener("input", () => renderAllQA(assistantInput.value));
+        }
+
+        const closeBtn = document.getElementById("modalCloseBtn");
+        const closeFooterBtn = document.getElementById("modalCloseFooterBtn");
+        const overlay = document.getElementById("detailModalOverlay");
+        if (closeBtn) closeBtn.addEventListener("click", () => overlay.classList.remove("active"));
+        if (closeFooterBtn) closeFooterBtn.addEventListener("click", () => overlay.classList.remove("active"));
+
+        renderSearchResults();
+        renderAllQA();
+        renderCalendar();
+        renderEvents();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initApp);
+      } else {
+        initApp();
+      }
+    })();
+  </script>
+</body>
+</html>
